@@ -28,24 +28,19 @@ final class MovieQuizViewController: UIViewController {
     @IBOutlet private weak var filmPosterView: UIImageView!
     @IBOutlet private weak var counterLabel: UILabel!
     @IBOutlet private weak var textLabel: UILabel!
+    @IBOutlet weak var noButton: UIButton!
     
+    @IBOutlet weak var yesButton: UIButton!
     @IBAction private func noButtonClicked(_ sender: Any) {
-        guard isButtonsEnabled else {
-            return
-        }
         showAnswerResult(isCorrect(givenAnswer: false))
-        isButtonsEnabled = false
+        enableButtons(false)
     }
     
     @IBAction private func yesButtonClicked(_ sender: Any) {
-        guard isButtonsEnabled else {
-            return
-        }
         showAnswerResult(isCorrect(givenAnswer: true))
-        isButtonsEnabled = false
+        enableButtons(false)
     }
     
-    private var isButtonsEnabled: Bool = false
     private var currentQuestionIndex: Int = 0
     private var correctAnswers: Int = 0
     private var playedQuizCounter: Int = 0
@@ -56,32 +51,6 @@ final class MovieQuizViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         showQuestion(indexOf: currentQuestionIndex)
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        /*
-            Тут имеет смысл дополнительно настроить наши изображения, например,
-            задать цвет фона для экрана.
-        */
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        /*
-          Тут имеет смысл оповестить систему аналитики о том, что экран показался.
-        */
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        /*
-           Тут имеет смысл остановить все процессы, которые происходили на этом экране.
-        */
-    }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        /*
-            Тут имеет смысл оповестить систему аналитики, что экран перестал показываться
-            и привести его в изначальное состояние.
-        */
     }
     
     // MARK: - Mock-данные
@@ -99,7 +68,6 @@ final class MovieQuizViewController: UIViewController {
     ]
     
     // MARK: - Show
-    
     private func restartQuiz() {
         currentQuestionIndex = 0
         correctAnswers = 0
@@ -143,7 +111,7 @@ final class MovieQuizViewController: UIViewController {
         filmPosterView.image = viewModel.image
         textLabel.text = viewModel.questionText
         counterLabel.text = viewModel.questionNumberText
-        isButtonsEnabled = true
+        enableButtons(true)
     }
     
     private func showQuizResult(_ viewModel: QuizResultsViewModel) {
@@ -203,5 +171,10 @@ final class MovieQuizViewController: UIViewController {
     private func clearBorders(of image: UIImageView) {
         image.layer.masksToBounds = false
         image.layer.borderWidth = 0
+    }
+    
+    private func enableButtons(_ isEnable: Bool) {
+        noButton.isEnabled = isEnable
+        yesButton.isEnabled = isEnable
     }
 }
