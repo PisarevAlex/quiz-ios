@@ -92,9 +92,9 @@ final class MovieQuizViewController: UIViewController {
         let text = """
         Ваш результат: \(correctAnswers) из \(questions.count)
         Количество сыгранных квизов: \(playedQuizCounter)
-        Рекорд: \(bestResult)/\(questions.count) (\(formattedDate))"
         Средняя точность: \(resultAccuracy)%
         """
+        //Рекорд: \(bestResult)/\(questions.count) (\(formattedDate))"
         let viewModel = QuizResultsViewModel(title: "Этот раунд окончен!", text: text, buttonText: "Сыграть ещё раз")
         showQuizResult(viewModel)
     }
@@ -169,7 +169,6 @@ final class MovieQuizViewController: UIViewController {
     }
     
     private func clearBorders(of image: UIImageView) {
-        image.layer.masksToBounds = false
         image.layer.borderWidth = 0
     }
     
