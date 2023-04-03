@@ -30,7 +30,7 @@ final class StatisticServiceImplementation : StatisticService {
         gamesCount += 1
         correctTotal += count
         
-        if (!bestGame.isBetterThan(otherResult: count)) {
+        if !bestGame.isBetterThan(otherResult: count) {
             bestGame = GameRecord(correct: count, total: amount, date: Date())
         }
     }
